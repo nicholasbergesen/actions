@@ -11,7 +11,7 @@ jobs:
       should-run-workflow-2: ${{ steps.set_output.outputs.should-run-workflow-2 }}
     steps:
       - id: set_output
-        run : echo "should-run-workflow-2=${{ inputs.should-run-workflow-2 }}" >> "$GITHUB_OUTPUTS"
+        run : echo "should-run-workflow-2=${{ inputs.should-run-workflow-2 }}" >> "$GITHUB_OUTPUT"
   run-workflow-1:
     runs-on: ubuntu-latest
     steps:
