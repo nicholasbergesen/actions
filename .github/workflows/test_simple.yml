@@ -1,4 +1,4 @@
-name: test_original
+name: test_simple
 on:
   workflow_dispatch:
     inputs:
