@@ -1,0 +1,29 @@
+name: test_original
+on:
+  workflow_dispatch:
+    inputs:
+      should-run-workflow-2:
+        type: string
+jobs:
+  filter:
+    runs-on: ubuntu-latest
+    outputs:
+      should-run-workflow-2: ${{ steps.set_output.outputs.should-run-workflow-2 }}
+    steps:
+      - id: set_output
+        run : echo "should-run-workflow-2=${{ inputs.should-run-workflow-2 }}" >> "$GITHUB_OUTPUT"
+  run-workflow-1:
+    runs-on: ubuntu-latest
+    steps:
+      - run : echo run-workflow-1 run!
+  run-workflow-2:
+    needs: [filter, run-workflow-1]
+    if: ${{ needs.filter.outputs.should-run-workflow-2 == 'true'}}
+    runs-on: ubuntu-latest
+    steps:
+      - run : echo run-workflow-2 run!
+  run-workflow-3:
+    needs: [filter, run-workflow-1]
+    runs-on: ubuntu-latest
+    steps:
+      - run : echo run-workflow-3 run!
