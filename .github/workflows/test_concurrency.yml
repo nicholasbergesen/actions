@@ -19,12 +19,12 @@ jobs:
   run-workflow-2:
     needs: [filter, run-workflow-1]
     if: ${{ needs.filter.outputs.should-run-workflow-2 == 'true'}}
-    concurrency: ${{ github.workflow }}_deploy_backend
+    concurrency: ${{ github.run_id }}_deploy_backend
     runs-on: ubuntu-latest
     steps:
       - run : echo run-workflow-2 run!
   run-workflow-3:
-    concurrency: ${{ github.workflow }}_deploy_backend
+    concurrency: ${{ github.run_id }}_deploy_backend
     runs-on: ubuntu-latest
     steps:
       - run : echo run-workflow-3 run!
